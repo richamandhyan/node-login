@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jsonp test</title>
+		<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>		
+		
+    </head>
+    <body>
+         <form action = "/login" method = "POST">
+            <fieldset>
+                <legend>Personal Information: </legend>
+                    First Name:<input id="fname" type = "text" name = "fname" />
+                    <br>
+                    Last Name:<input id="lname" type = "text" name = "lname" />
+                    <br>
+                    Phone Number :<input id="phone" type = "number" name = "phone" />
+                    <br>
+                    Email:<input id="mail" type = "email" name = "mail" />
+                    <br>
+                    <button>Submit</button>
+            </fieldset>
+        </form> 
+        
+        <script type="text/javascript">
+            $(document).ready(function(){               
+                $('button').click(function(e){
+                    e.preventDefault();
+                    console.log('button clicked');
+
+                    var first = $('#fname').val();
+                    var last = $('#lname').val();
+                    var phone = $('#phone').val();
+                    var mail = $('#mail').val();
+                    
+                        
+                    var data = {};
+                    data.first = first;
+                    data.last = last;
+                    data.phone = phone;
+                    data.mail = mail;
+                    
+                    //console.log(data);
+                    $.ajax({
+                        type: 'POST',
+                        data: data,
+                        //contentType: 'application/json',
+                        url: '/login',                      
+                        success: function(data) {
+                            console.log(data);
+                            if(data === 'done'){
+                            console.log("success");
+                            }
+                        },
+                        error: function(err){alert(err);}
+                    });
+                
+                });             
+            });
+
+
+        </script> 
+    </body>
+</html>
